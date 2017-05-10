@@ -1,13 +1,11 @@
 package com.zuehlke;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by urzy on 10.05.2017.
@@ -16,21 +14,26 @@ import java.util.List;
 @Controller
 public class MovieController {
 
-    @RequestMapping(value = "/movie", method = RequestMethod.GET)
-    @ResponseBody
-    public Movie getMovie(@RequestParam(value="id", defaultValue="1") String id) {
-        if(id.equals("1"))
-            return new Movie(1,"Batman Begins", "https://images-na.ssl-images-amazon.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg");
-        return null;
+    private final MovieServiceAdapter movieServiceAdapter;
+    //private final RatingAdapter ratingAdapter;
+
+    public MovieController(MovieServiceAdapter movieServiceAdapter) {//}, RatingAdapter ratingAdapter) {
+        this.movieServiceAdapter = movieServiceAdapter;
+        //this.ratingAdapter = ratingAdapter;
     }
 
-    @RequestMapping(value = "/movies", method = RequestMethod.GET)
+    @GetMapping("/movies")
     @ResponseBody
     public List<Movie> getMovies() {
-        List<Movie> movies = new ArrayList<Movie>();
-        movies.add(new Movie(1,"Batman Begins", "https://images-na.ssl-images-amazon.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg"));
-        movies.add(new Movie(2,"Ted", "https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ1OTU0ODcxMV5BMl5BanBnXkFtZTcwOTMxNTUwOA@@._V1_SX300.jpg"));
-        movies.add(new Movie(3,"Inception", "https://images-na.ssl-images-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"));
-        return movies;
+        return movieServiceAdapter.getAll();
+    }
+
+    @GetMapping("/movies/{id}")
+    @ResponseBody
+    public MovieDetail getMovieById(@PathVariable("id") long id) {
+        Optional<MovieDetail> movieDetail = movieServiceAdapter.getMovieById(id);
+        //List<Rating> ratings = ratingAdapter.getRatingsById(id);
+
+        return movieDetail.orElse(null);
     }
 }

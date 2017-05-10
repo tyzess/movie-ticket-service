@@ -27,4 +27,27 @@ public class Movie {
         return poster;
     }
 
+    public String toString() {
+        return name + poster;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Movie movie = (Movie) o;
+
+        if (id != movie.id) return false;
+        if (!name.equals(movie.name)) return false;
+        return poster.equals(movie.poster);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + poster.hashCode();
+        return result;
+    }
 }
