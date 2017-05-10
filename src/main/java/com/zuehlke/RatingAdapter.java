@@ -1,7 +1,10 @@
 package com.zuehlke;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 /**
  * Created by urzy on 10.05.2017.
@@ -11,7 +14,10 @@ public class RatingAdapter {
     private final RatingServiceApiClient ratingsApiClient;
 
     public RatingAdapter(String url) {
-        ratingsApiClient = RestClientFactory.createClient(url, RatingServiceApiClient.class);
+        RatingServiceApiClient fallback = (id) -> {
+                return new ArrayList<RatingResponse>();
+            };
+        ratingsApiClient = RestClientFactory.createClientWithFallback(url, RatingServiceApiClient.class, fallback);
 
     }
 

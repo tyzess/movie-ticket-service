@@ -12,7 +12,7 @@ public class MovieServiceAdapter {
     private final MovieServiceApiClient moviesApiClient;
 
     public MovieServiceAdapter(String url) {
-        moviesApiClient = RestClientFactory.createClient(url, MovieServiceApiClient.class);
+        moviesApiClient = RestClientFactory.createClientWithoutFallback(url, MovieServiceApiClient.class);
     }
 
     public List<Movie> getAll() {
