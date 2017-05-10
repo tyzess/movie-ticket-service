@@ -3,6 +3,7 @@ package com.zuehlke;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -16,8 +17,10 @@ public class MovieController {
 
     @RequestMapping(value = "/api/v1/movie", method = RequestMethod.GET)
     @ResponseBody
-    public Movie getMovie() {
-        return new Movie(1,"Batman Begins", "https://images-na.ssl-images-amazon.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg");
+    public Movie getMovie(@RequestParam(value="id", defaultValue="1") String id) {
+        if(id.equals("1"))
+            return new Movie(1,"Batman Begins", "https://images-na.ssl-images-amazon.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg");
+        return null;
     }
 
     @RequestMapping(value = "/api/v1/movies", method = RequestMethod.GET)
