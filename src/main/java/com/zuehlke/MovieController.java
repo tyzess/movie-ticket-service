@@ -17,15 +17,16 @@ public class MovieController {
     @RequestMapping(value = "/api/v1/movie", method = RequestMethod.GET)
     @ResponseBody
     public Movie getMovie() {
-        return new Movie(1,"Titanic", "https://www.google.com/favicon");
+        return new Movie(1,"Batman Begins", "https://images-na.ssl-images-amazon.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg");
     }
 
     @RequestMapping(value = "/api/v1/movies", method = RequestMethod.GET)
     @ResponseBody
     public List<Movie> getMovies() {
         List<Movie> movies = new ArrayList<Movie>();
-        movies.add(new Movie(1,"Titanic", "https://www.google.com/favicon"));
-        movies.add(new Movie(1,"Titanic", "https://www.google.com/favicon"));
+        movies.add(new Movie(1,"Batman Begins", "https://images-na.ssl-images-amazon.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg"));
+        movies.add(new Movie(2,"Ted", "https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ1OTU0ODcxMV5BMl5BanBnXkFtZTcwOTMxNTUwOA@@._V1_SX300.jpg"));
+        movies.add(new Movie(3,"Inception", "https://images-na.ssl-images-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"));
         return movies;
     }
 }
