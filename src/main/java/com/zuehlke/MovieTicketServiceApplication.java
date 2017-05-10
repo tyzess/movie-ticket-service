@@ -16,6 +16,11 @@ public class MovieTicketServiceApplication {
 	public MovieServiceAdapter movieServiceAdapter(@Value("${endpoint.movie-service}") String url) {
 		return new MovieServiceAdapter(url);
 	}
+
+	@Bean
+	public RatingAdapter ratingAdapter(@Value("${endpoint.movie-rating-service}") String url) {
+		return new RatingAdapter(url);
+	}
 }
 
 

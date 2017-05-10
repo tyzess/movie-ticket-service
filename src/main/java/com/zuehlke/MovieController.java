@@ -15,11 +15,11 @@ import java.util.Optional;
 public class MovieController {
 
     private final MovieServiceAdapter movieServiceAdapter;
-    //private final RatingAdapter ratingAdapter;
+    private final RatingAdapter ratingAdapter;
 
-    public MovieController(MovieServiceAdapter movieServiceAdapter) {//}, RatingAdapter ratingAdapter) {
+    public MovieController(MovieServiceAdapter movieServiceAdapter, RatingAdapter ratingAdapter) {
         this.movieServiceAdapter = movieServiceAdapter;
-        //this.ratingAdapter = ratingAdapter;
+        this.ratingAdapter = ratingAdapter;
     }
 
     @GetMapping("/movies")
@@ -32,7 +32,7 @@ public class MovieController {
     @ResponseBody
     public MovieDetail getMovieById(@PathVariable("id") long id) {
         Optional<MovieDetail> movieDetail = movieServiceAdapter.getMovieById(id);
-        //List<Rating> ratings = ratingAdapter.getRatingsById(id);
+        List<Rating> ratings = ratingAdapter.getRatingsById(id);
 
         return movieDetail.orElse(null);
     }

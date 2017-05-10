@@ -1,5 +1,6 @@
 package com.zuehlke;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,11 +8,19 @@ import java.util.List;
  */
 public class RatingAdapter {
 
+    private final RatingServiceApiClient ratingsApiClient;
+
     public RatingAdapter(String url) {
+        ratingsApiClient = RestClientFactory.createClient(url, RatingServiceApiClient.class);
 
     }
 
     public List<Rating> getRatingsById(long id) {
-        return null;
+        List<RatingResponse> ratingResponses = ratingsApiClient.getRatingsById(id);
+        List<Rating> ratings = new ArrayList<Rating>();
+        for( RatingResponse ratingResponse : ratingResponses) {
+            ratings.add(Rating.from(ratingResponse));
+        }
+        return ratings;
     }
 }
