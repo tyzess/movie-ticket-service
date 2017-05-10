@@ -12,10 +12,11 @@ import java.util.List;
 /**
  * Created by urzy on 10.05.2017.
  */
+@RequestMapping("/api/v1/")
 @Controller
 public class MovieController {
 
-    @RequestMapping(value = "/api/v1/movie", method = RequestMethod.GET)
+    @RequestMapping(value = "/movie", method = RequestMethod.GET)
     @ResponseBody
     public Movie getMovie(@RequestParam(value="id", defaultValue="1") String id) {
         if(id.equals("1"))
@@ -23,7 +24,7 @@ public class MovieController {
         return null;
     }
 
-    @RequestMapping(value = "/api/v1/movies", method = RequestMethod.GET)
+    @RequestMapping(value = "/movies", method = RequestMethod.GET)
     @ResponseBody
     public List<Movie> getMovies() {
         List<Movie> movies = new ArrayList<Movie>();
